@@ -51,9 +51,27 @@ $('#q2').click(function() {
     $('#q2').css('background-color', 'pink');
 });
 // 第3問　id="q3"の要素をクリックしたら2秒かけてフェードアウトさせよ。
+$('#q3').click(function(){
+    $('#q3').fadeOut(2000);
+});
 // 第4問　id="q4"の要素をクリックしたらこの要素の前後とこの要素内の前後にテキストを挿入せよ。
+$('#q4').click(function(){
+    $('#q4').append('　後');
+    $('#q4').prepend('前　');
+    $('#q4').after('ato');
+    $('#q4').before('mae');
+});
 // 第5問　id="q5"の要素をクリックしたらこの要素にbigというクラスを付与せよ。
+$('#q5').click(function(){
+    $('#q5').wrap('<div class=big />');
+});
 // 第6問　id="q6"の要素をクリックしたらこの要素を2秒かけてmargin-topとmargin-leftを100pxの位置に移動させよ。
+$('#q6').click(function(){
+    $('#q6').animate({
+        "margin-top":"100px",
+        "margin-left":"100px"
+    },2000);
+});
 // 第7問　id="q7"の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
 // 第8問　id="q8"の要素をhoverしたらbigというクラスを付与し、hoverが外れたら、クラスを削除せよ。
 // 第9問　id="q9"の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
