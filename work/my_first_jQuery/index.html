@@ -73,8 +73,26 @@ $('#q6').click(function(){
     },2000);
 });
 // 第7問　id="q7"の子要素をクリックしたら、その要素のインデックス（何番目か）をconsole.log()とalert()を用いて表示させよ。
+$('#q7 li').click(function(){
+    var i = $('#q7 li').index(this);
+    console.log(i);
+    alert(i);
+});
 // 第8問　id="q8"の要素をhoverしたらbigというクラスを付与し、hoverが外れたら、クラスを削除せよ。
+$('#q8').hover(function(){
+    // カーソル乗せた時
+    $('#q8').addClass('big');    
+    }, 
+    // カーソル外した時
+    function() {
+        $('#q8').removeClass('big');
+});
 // 第9問　id="q9"の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
+$('#q9').click(function(){
+    $('#q9').data('text');
+    $('#q9').attr('data-text', '02');
+    $('#q9').data('text');
+});
 // 第10問　id="q10"の子要素をクリックしたら、その要素のインデックスと等しいid="q11"の子要素にbigというクラスを追加せよ。
 </script>
 </body>
