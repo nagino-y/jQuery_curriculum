@@ -88,12 +88,22 @@ $('#q8').hover(function(){
         $('#q8').removeClass('big');
 });
 // 第9問　id="q9"の要素をクリックしたらこの要素に設定してあるdata属性をconsoleに表示せよ。
-$('#q9').click(function(){
-    $('#q9').data('text');
-    $('#q9').attr('data-text', '02');
-    $('#q9').data('text');
+$('#q9').click(function(){
+    const div = document.querySelector('div')
+    console.log(div.dataset.text)
+    // const result = $('#q9').data();
+    // console.log(result);
 });
 // 第10問　id="q10"の子要素をクリックしたら、その要素のインデックスと等しいid="q11"の子要素にbigというクラスを追加せよ。
+$('#q10 li').eq(0).click(function() {
+    $('#q11 li').eq(0).addClass('big');
+});
+$('#q10 li').eq(1).click(function() {
+    $('#q11 li').eq(1).addClass('big');
+});
+$('#q10 li').eq(2).click(function() {
+    $('#q11 li').eq(2).addClass('big');
+});
 </script>
 </body>
 </html>
