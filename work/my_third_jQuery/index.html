@@ -26,6 +26,15 @@
 // .modal-close をクリックで .modal をfadeOutさせる。
 // .fadeTo() 第一引数に秒数、第二引数にopacityを設定し、その秒数をかけて設定したopacityに変化する。
 // .fadeOut() 一定時間かけてフェードアウトする。
+$(function () {
+  $('.modal-show').click(function(){
+      $('.modal').fadeTo(function() {
+          1000, 0.5});
+  });
+  $('.modal-close').click(function(){
+    $('.modal').fadeOut(2000);
+  });
+});
 </script>
 </body>
 </html>
