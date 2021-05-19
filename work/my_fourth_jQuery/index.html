@@ -30,55 +30,13 @@
 // .eq() 引数に応じたindexの要素を指定します。
 // .addClass() クラスを追加します。
 // .removeClass() クラスを削除します。 
-// $(function() {
-// //   let tabs = $(".nav"); // tabのクラスを全て取得し、変数tabsに配列で定義
-//   $(".nav li").on("click", function() { // tabをクリックしたらイベント発火
-//     $(".contents").removeClass("is-hidden"); // activeクラスを消す
-//     $(this).addClass("is-hidden"); // クリックした箇所にactiveクラスを追加
-//     const index = contents.index(this); // クリックした箇所がタブの何番目か判定し、定数indexとして定義
-//     $(".contents").removeClass("is-hidden").eq(index).addClass("is-hidden"); // showクラスを消して、contentクラスのindex番目にshowクラスを追加
-//   })
 $(function() {
- 
- // ①タブをクリックしたら発動
- $('.nav li').click(function() {
-
-   // ②クリックされたタブの順番を変数に格納
-//    var index = $('.contents li').index(this);
-   var index = $('.contents li').eq();
-
-   // ③クリック済みタブのデザインを設定したcssのクラスを一旦削除
-   $(this).removeClass('.is-hidden');
-
-   // ④クリックされたタブにクリック済みデザインを適用する
-   $('.contents li').addClass('.is-hidden');
-
-//    // ⑤コンテンツを一旦非表示にし、クリックされた順番のコンテンツのみを表示
-//    $('.contents li').removeClass('show').eq(index).addClass('show');
-
- });
+    $('.nav li').click(function() {
+        var index = $('.nav li').index(this);
+        $('.contents li').addClass('is-hidden').eq(index).removeClass('is-hidden');
+    });
 });
 
-// $(function() {
-//   $(".nav li").click(function() {
-//     $(this).parent().addClass("active").siblings(".active").removeClass("active");
-//     var tabContents = $(this).attr("href");
-//     $(tabContents).addClass("active").siblings(".active").removeClass("active");
-//     return false;
-//   });
-// });
-
-// $(function(){
-//     $('.nav').on('click', 'li', function(){
-//         var index = $('li').index(this);
-//         $(".contents, 'li'").
-//     });
-// })
-// $(function(){
-//     $('.nav li').on('click', function(){
-//         $(this).next().slideToggle();
-//     });
-// });
 </script>
 </body>
 </html>
