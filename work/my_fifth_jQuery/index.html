@@ -11,6 +11,7 @@
 </head>
 <body>
 <div class="tooltip-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br>Accusamus, provident harum commodi nam fugiat blanditiis natus similique odio minima eius tenetur, facilis sit amet, alias nemo pariatur modi ab facere.</div>
+<div class='tooltip'>description</div>
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
 // 今回やるのはツールチップです。
@@ -25,16 +26,22 @@
 // }
 // mousemove マウスが移動している状態を取ります。
 // .hover() マウスが乗った、外れた時のタイミングを取ります。
-// .stop() アニメーションを止めます。引数次第で止め方が変わります。ググりましょう。$(function () {
-  $(function () {
-    $('.tooltip').hide();
-    $('td').hover(
-    function () {
-        $(this).children('.tooltip').fadeIn('fast');
-    },
-    function () {
-        $(this).children('.tooltip').fadeOut('fast');
-    });
+// .stop() アニメーションを止めます。引数次第で止め方が変わります。ググりましょう。
+
+$(function () {
+  $('.tooltip-body').hover(function() {
+    $(this).next('.tooltip').fadeIn();
+  }, function(){
+    $(this).next('.tooltip').fadeOut();
+  });
+});
+// マウス座標を吹き出しにセット
+$('.tooltip-body').mousemove(function(e){
+  // 吹き出しに合わせ微調整
+  $('.tooltip').css({
+    'top': e.clientY - 20,
+    'left': e.clientX + 20
+  });    
 });
 
 </script>
