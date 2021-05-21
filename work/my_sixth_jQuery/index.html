@@ -19,6 +19,26 @@
 // keyup 文字入力後に発火されるイベントです。
 // .replace(/\s+/g,'').length 改行を含まない文字数を取得します。
 // .val() input要素のvalueを取得します。
+// $(function(){
+
+// $('.input').keyup(function(){
+//   var count = $(this).val().length;
+//   $('.lest-count').text(count);
+// });
+// });
+$(function(){
+    $('.input').keyup(function(){
+        var remain = 30 - $(this).val().length;
+
+        $('.lest-count').text(remain);
+        if (remain < 0) {
+            $('.lest-count').css('color', 'red');
+        } else {
+            $('.lest-count').css('color', 'grey');
+        }
+    });
+});
+
 </script>
 </body>
 </html>

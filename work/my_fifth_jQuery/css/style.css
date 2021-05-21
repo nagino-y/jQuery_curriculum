@@ -4,6 +4,7 @@
     background-color: #fff;
     border-radius: 10px;
     border: 2px #CCC solid;
+    display: none;
 }
 .tooltip-body {
     position: relative;
