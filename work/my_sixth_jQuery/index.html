@@ -29,12 +29,13 @@
 $(function(){
     $('.input').keyup(function(){
         var remain = 30 - $(this).val().length;
+        var lestCount = $('.lest-count');
 
-        $('.lest-count').text(remain);
+        $(lestCount).text(remain);
         if (remain < 0) {
-            $('.lest-count').css('color', 'red');
+            $(lestCount).css('color', 'red');
         } else {
-            $('.lest-count').css('color', 'grey');
+            $(lestCount).css('color', 'grey');
         }
     });
 });
