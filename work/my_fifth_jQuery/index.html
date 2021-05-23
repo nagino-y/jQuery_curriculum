@@ -29,32 +29,24 @@
 // .stop() アニメーションを止めます。引数次第で止め方が変わります。ググりましょう。
 
 $(function () {
+  $('.tooltip-body').after('<div class="tooltip" style="display: none;">description</div>');
   // それぞれのクラスに変数を設定（複数回使用のため）
-  // var toolTip = $(".tooltip");
-  var toolTip = $(<div class='tooltip' style='display: none;'>description</div>);
+  var toolTip = $('.tooltip');
   var tooltipBody = $('.tooltip-body');
 
-  // $(tooltipBody).hover(function() {
-  //   $(this).next(toolTip).fadeIn();
-  // }, function(){
-  //   $(this).next(toolTip).fadeOut();
-  // });
   $(tooltipBody).hover(function() {
-    $(this).next({
-      addClass('<div class='tooitip' style='display: none;'>description</div>')
-    };
-    ).fadeIn();
+    $(this).next(toolTip).fadeIn();
   }, function(){
     $(this).next(toolTip).fadeOut();
   });
   // マウス座標を吹き出しにセット
-  $(tooltipBody).mousemove(function(e){
-    // 吹き出しに合わせ微調整
-    $(toolTip).css({
-      'top': e.clientY - 20,
-      'left': e.clientX + 20
-    });    
-  });
+    $(tooltipBody).mousemove(function(e){
+      // 吹き出しに合わせ微調整
+      $(toolTip).css({
+        'top': e.clientY - 20,
+        'left': e.clientX + 20
+      });
+    });
 });
 
 </script>
