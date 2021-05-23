@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="tooltip-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit.<br>Accusamus, provident harum commodi nam fugiat blanditiis natus similique odio minima eius tenetur, facilis sit amet, alias nemo pariatur modi ab facere.</div>
-<div class='tooltip'>description</div>
+<!-- <div class='tooltip'>description</div> -->
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript">
 // 今回やるのはツールチップです。
@@ -30,11 +30,20 @@
 
 $(function () {
   // それぞれのクラスに変数を設定（複数回使用のため）
-  var toolTip = $(".tooltip");
+  // var toolTip = $(".tooltip");
+  var toolTip = $(<div class='tooltip' style='display: none;'>description</div>);
   var tooltipBody = $('.tooltip-body');
 
+  // $(tooltipBody).hover(function() {
+  //   $(this).next(toolTip).fadeIn();
+  // }, function(){
+  //   $(this).next(toolTip).fadeOut();
+  // });
   $(tooltipBody).hover(function() {
-    $(this).next(toolTip).fadeIn();
+    $(this).next({
+      addClass('<div class='tooitip' style='display: none;'>description</div>')
+    };
+    ).fadeIn();
   }, function(){
     $(this).next(toolTip).fadeOut();
   });
