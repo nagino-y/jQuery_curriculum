@@ -34,17 +34,26 @@
 // .data() 要素のdata属性を取得します。引数が2つある場合、セットします。
 // .width() 要素の幅を取得します。
 // .length 要素の個数を取得します。
-
-$('.slider-ctrl-btn next').click(function(){
-    $('slider-list clearfix:not(:animated)').animate({
-        'margin-left' : -1*$('.slider-list clearfix li').width()
-    },function(){
-        // アニメーション完了時
-        $('.slider-list clearfix').append($('.slider-list clearfix li:first-child')); //先頭の画像を最後に持ってくる
-        $('.slider-list clearfix').css('margin-left','0');
+$(function(){
+    var sliderList = (sliderList);
+    $('.slider-ctrl-btn next').click(function(){
+        $(sliderList + not(animated)).animate({
+            'margin-left' : -1*$(sliderList + li).width()
+        },function(){
+            // アニメーション完了時
+            $(sliderList).append($(sliderList + li + first-child)); //先頭の画像を最後に持ってくる
+            $(sliderList).css('margin-left','0');
+        });
     });
+    
+    // $('.slider-ctrl-btn prev').click(function(){
+    //     $('.slider-list:not(:animated').prepend($('.slider-list li:last-child'))
+    //     .css('margin-left',-1*$('.slider-list li').width())
+    //     .animate({
+    //         'margin-left' : 0
+    //     });
+    // });
 });
-
 // const images = $('.slider-list clearfix');
  
 // let counter = 0;
