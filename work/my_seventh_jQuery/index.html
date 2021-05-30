@@ -35,25 +35,45 @@
 // .width() 要素の幅を取得します。
 // .length 要素の個数を取得します。
 $(function(){
-    var sliderList = (sliderList);
     $('.slider-ctrl-btn next').click(function(){
-        $(sliderList + not(animated)).animate({
-            'margin-left' : -1*$(sliderList + li).width()
+    $('.slider-list:not(:animated)').animate({
+        'margin-left' : -1*$('.slider-list clearfix').width()
         },function(){
-            // アニメーション完了時
-            $(sliderList).append($(sliderList + li + first-child)); //先頭の画像を最後に持ってくる
-            $(sliderList).css('margin-left','0');
-        });
-    });
-    
-    // $('.slider-ctrl-btn prev').click(function(){
-    //     $('.slider-list:not(:animated').prepend($('.slider-list li:last-child'))
-    //     .css('margin-left',-1*$('.slider-list li').width())
-    //     .animate({
-    //         'margin-left' : 0
-    //     });
-    // });
+            $('.slider-list clearfix').append($('.slider-list clearfix li:first-child'));
+    $('.slider-list clearfix').css('margin-left', '0');
+    })
 });
+$(‘.prev’).click(function(){
+    $(‘.slider-list:not(:animated)’).prepend($(‘.slider-item:last-child’))
+    .css(‘margin-left’, -1*$(‘.slider-item’).width())
+    .animate({
+        ’margin-left’ : 0
+    });
+    });
+});
+
+// $(function(){
+//     var sliderList = ('.slider-list clearfix');
+//     var sliderLi = ('.slider-list clearfix li')
+//     $('.slider-ctrl-btn next').click(function(){
+//         $(sliderList).animate({
+//             'margin-left' : -1*$(sliderLi).width()
+//         },function(){
+//             // アニメーション完了時
+//             $(sliderList).append($(sliderLi + ':first-child')); //先頭の画像を最後に持ってくる
+//             $(sliderList).css('margin-left','0');
+//         });
+//     });
+//     // $(sliderList + not(animated)).animate({
+    
+//     // $('.slider-ctrl-btn prev').click(function(){
+//     //     $('.slider-list:not(:animated').prepend($('.slider-list li:last-child'))
+//     //     .css('margin-left',-1*$('.slider-list li').width())
+//     //     .animate({
+//     //         'margin-left' : 0
+//     //     });
+//     // });
+// });
 // const images = $('.slider-list clearfix');
  
 // let counter = 0;
