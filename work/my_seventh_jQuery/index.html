@@ -35,21 +35,29 @@
 // .width() 要素の幅を取得します。
 // .length 要素の個数を取得します。
 $(function(){
+    // var sliderList = 'slider-list clearfix';
+    // var sliderLi = 'slider-list clearfix li';
     $('.slider-ctrl-btn next').click(function(){
-    $('.slider-list:not(:animated)').animate({
-        'margin-left' : -1*$('.slider-list clearfix').width()
-        },function(){
-            $('.slider-list clearfix').append($('.slider-list clearfix li:first-child'));
-    $('.slider-list clearfix').css('margin-left', '0');
-    })
-});
-$(‘.prev’).click(function(){
-    $(‘.slider-list:not(:animated)’).prepend($(‘.slider-item:last-child’))
-    .css(‘margin-left’, -1*$(‘.slider-item’).width())
-    .animate({
-        ’margin-left’ : 0
+        $('.slider-list clearfix li').animate({
+            'margin-left': '-50'
+        })
     });
-    });
+
+    // $('.slider-ctrl-btn next').click(function(){
+    //     $('.slider-list clearfix:not(:animated)').animate({
+    //         'margin-left' : -1*$('.slider-list clearfix li').width()
+    //         },function(){
+    //             $('.slider-list clearfix').append($('.slider-list clearfix li:first-child'));
+    //             $('.slider-list clearfix').css('margin-left', '0');
+    //     });
+    //     $('.slider-ctrl-btn prev').click(function(){
+    //         $('.slider-list clearfix:not(:animated)').prepend($('.slider-list clearfix li:last-child'))
+    //         .css('margin-left', -1*$('.slider-list clearfix').width())
+    //         .animate({
+    //             'margin-left' : 0
+    //         });
+    //     });
+    // });
 });
 
 // $(function(){
