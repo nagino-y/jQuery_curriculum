@@ -13,7 +13,7 @@
 <div class="wrapper">
     <div class="slider-wrap">
         <div class="slider-area">
-            <ul class="slider-list clearfix">
+            <ul class="slider-list">
                 <li><img src="img/1.jpg" alt=""></li>
                 <li><img src="img/2.jpg" alt=""></li>
                 <li><img src="img/3.jpg" alt=""></li>
@@ -37,12 +37,58 @@
 $(function(){
     // var sliderList = 'slider-list clearfix';
     // var sliderLi = 'slider-list clearfix li';
-    $('.slider-ctrl-btn next').click(function(){
-        $('.slider-list clearfix li').animate({
-            'margin-left': '-50'
+    // $('.slider-ctrl-btn next').click(function(){
+    //     $('.slider-list li').animate({
+    //         'left':'-100%'
+    //     },2000);
+    // });
+    var click = 0; //clickを０とします
+    $('.next').click(function(){
+        click++;
+        if(click < 4) {
+        var data = $(this).data('next');
+        $('.slider-list').animate({
+            left: click * -600
+        }, 500);
+        } 
+        else {
+        click = 0;
+        $('.slider-list').animate({
+        left: 0
+        }, 500);
+    };
+    $('.prev').click(function(){
+          click++;
+          if(click < 4) {
+          var data = $(this).data('prev');
+          $('.slider-list').animate({
+              left: click * 600
+          }, 500);
+          } else {
+              click = 0;
+              $('.slider-list').animate({
+                  right: 0
+              }, 500);
+          }
         });
     });
-
+});
+    // $(function(){
+//       $('.prev').click(function(){
+//           click--;
+//           if(click < 4) {
+//           var data = $(this).data('prev');
+//           $('.slider-list').animate({
+//               right: click * -600
+//           }, 500);
+//           } else {
+//               click = 0;
+//               $('.slider-list').animate({
+//                   right: 0
+//               }, 500);
+//           }
+//       })
+//     });
     // $('.slider-ctrl-btn next').click(function(){
     //     $('.slider-list clearfix:not(:animated)').animate({
     //         'margin-left' : -1*$('.slider-list clearfix li').width()
@@ -58,7 +104,6 @@ $(function(){
     //         });
     //     });
     // });
-});
 
 // $(function(){
 //     var sliderList = ('.slider-list clearfix');
