@@ -35,43 +35,38 @@
 // .width() 要素の幅を取得します。
 // .length 要素の個数を取得します。
 $(function(){
-    // var sliderList = 'slider-list clearfix';
-    // var sliderLi = 'slider-list clearfix li';
-    // $('.slider-ctrl-btn next').click(function(){
-    //     $('.slider-list li').animate({
-    //         'left':'-100%'
-    //     },2000);
-    // });
     var click = 0; //clickを０とします
+    var sliderList = '.slider-list';
     $('.next').click(function(){
         click++;
         if(click < 4) {
-        var data = $(this).data('next');
-        $('.slider-list').animate({
-            left: click * -600
-        }, 500);
-        } 
+            var data = $(this).data('next');
+            $(sliderList).animate({
+                left: click * -600
+            }, 500);
+        }
         else {
-        click = 0;
-        $('.slider-list').animate({
-        left: 0
+            click = 0;
+            $(sliderList).animate({
+            left: 0
         }, 500);
-    };
+        }
+    });
+    click = 4;
     $('.prev').click(function(){
-          click++;
+          click--;
           if(click < 4) {
           var data = $(this).data('prev');
-          $('.slider-list').animate({
-              left: click * 600
+          $(sliderList).animate({
+              left: click * -600
           }, 500);
           } else {
               click = 0;
-              $('.slider-list').animate({
+              $(sliderList).animate({
                   right: 0
               }, 500);
           }
-        });
-    });
+    })
 });
     // $(function(){
 //       $('.prev').click(function(){
