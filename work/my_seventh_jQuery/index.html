@@ -36,103 +36,42 @@
 // .length 要素の個数を取得します。
 $(function(){
     var click = 0; //clickを０とします
-    var sliderList = '.slider-list';
+    var $sliderList = '.slider-list';
+    const sliderWidth = $('.slider-list li').width();
+    // slider-listの子要素を数えている
+    const sliderLi = $('.slider-list li').length;
+
     $('.next').click(function(){
         click++;
-        if(click < 4) {
-            var data = $(this).data('next');
-            $(sliderList).animate({
-                left: click * -600
+        if(click < sliderLi) {
+            var $data = $(this).data('next');
+            $($sliderList).animate({
+                left: click * -sliderWidth
             }, 500);
         }
         else {
             click = 0;
-            $(sliderList).animate({
+            $($sliderList).animate({
             left: 0
         }, 500);
         }
     });
-    click = 4;
+    click = sliderLi;
     $('.prev').click(function(){
           click--;
-          if(click < 4) {
-          var data = $(this).data('prev');
-          $(sliderList).animate({
-              left: click * -600
+          if(click < sliderLi && click > 0) {
+          var $data = $(this).data('prev');
+          $($sliderList).animate({
+              left: click * -sliderWidth
           }, 500);
           } else {
-              click = 0;
-              $(sliderList).animate({
-                  right: 0
+              click = sliderLi;
+              $($sliderList).animate({
+                  left: 0
               }, 500);
           }
     })
 });
-    // $(function(){
-//       $('.prev').click(function(){
-//           click--;
-//           if(click < 4) {
-//           var data = $(this).data('prev');
-//           $('.slider-list').animate({
-//               right: click * -600
-//           }, 500);
-//           } else {
-//               click = 0;
-//               $('.slider-list').animate({
-//                   right: 0
-//               }, 500);
-//           }
-//       })
-//     });
-    // $('.slider-ctrl-btn next').click(function(){
-    //     $('.slider-list clearfix:not(:animated)').animate({
-    //         'margin-left' : -1*$('.slider-list clearfix li').width()
-    //         },function(){
-    //             $('.slider-list clearfix').append($('.slider-list clearfix li:first-child'));
-    //             $('.slider-list clearfix').css('margin-left', '0');
-    //     });
-    //     $('.slider-ctrl-btn prev').click(function(){
-    //         $('.slider-list clearfix:not(:animated)').prepend($('.slider-list clearfix li:last-child'))
-    //         .css('margin-left', -1*$('.slider-list clearfix').width())
-    //         .animate({
-    //             'margin-left' : 0
-    //         });
-    //     });
-    // });
-
-// $(function(){
-//     var sliderList = ('.slider-list clearfix');
-//     var sliderLi = ('.slider-list clearfix li')
-//     $('.slider-ctrl-btn next').click(function(){
-//         $(sliderList).animate({
-//             'margin-left' : -1*$(sliderLi).width()
-//         },function(){
-//             // アニメーション完了時
-//             $(sliderList).append($(sliderLi + ':first-child')); //先頭の画像を最後に持ってくる
-//             $(sliderList).css('margin-left','0');
-//         });
-//     });
-//     // $(sliderList + not(animated)).animate({
-    
-//     // $('.slider-ctrl-btn prev').click(function(){
-//     //     $('.slider-list:not(:animated').prepend($('.slider-list li:last-child'))
-//     //     .css('margin-left',-1*$('.slider-list li').width())
-//     //     .animate({
-//     //         'margin-left' : 0
-//     //     });
-//     // });
-// });
-// const images = $('.slider-list clearfix');
- 
-// let counter = 0;
-// let index = 0;
-// $('.slider-ctrl-btn next').click(() => {
-//   images.eq(index).css('display', 'none');
- 
-//   index = ++counter % images.length;
-  
-//   images.eq(index).fadeIn();
-// })
 </script>
 </body>
 </html>
