@@ -42,7 +42,7 @@ $(function(){
     var sliderLi = $('.slider-list li').length;
     $('.next').click(function(){
         click++;
-        if(click < sliderLi || click == 0) {
+        if(click < sliderLi) {
             var $data = $(this).data('next');
             $($sliderList).animate({
                 left: click * -sliderWidth
@@ -55,13 +55,7 @@ $(function(){
         }, 500);
         }
     });
-});
-$(function(){
-    var $sliderList = '.slider-list';
-    const sliderWidth = $('.slider-list li').width();
-    // slider-listの子要素を数えている
-    var sliderLi = $('.slider-list li').length;
-    var click = sliderLi; 
+    // var click = sliderLi; 
     $('.prev').click(function(){
         click--;
           if(click < sliderLi && click > 0) {
@@ -76,6 +70,9 @@ $(function(){
               }, 500);
           }
     })
+});
+$(function(){
+
 });
 </script>
 </body>
