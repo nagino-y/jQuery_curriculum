@@ -48,31 +48,41 @@ $(function(){
                 left: click * -sliderWidth
             }, 500);
         }
-        else {
+        else if(click > sliderLi){
+            click = 0;
+            $($sliderList).animate({
+            left: 0
+        }, 500);
+        }
+        else{
             click = 0;
             $($sliderList).animate({
             left: 0
         }, 500);
         }
     });
-    // var click = sliderLi; 
     $('.prev').click(function(){
         click--;
-          if(click < sliderLi && click > 0) {
-          var $data = $(this).data('prev');
-          $($sliderList).animate({
-              left: click * -sliderWidth
-          }, 500);
-          } else {
+          if(click < 0) {
+              click = sliderLi-1;
+              var $data = $(this).data('prev');
+              $($sliderList).animate({
+                  left: click * -sliderWidth
+              }, 500);  
+          } 
+          else if(click < sliderLi && click > 0) {
+              var $data = $(this).data('prev');
+              $($sliderList).animate({
+                  left: click * -sliderWidth
+              }, 500);  
+          }
+          else {
               click = sliderLi;
               $($sliderList).animate({
                   left: 0
               }, 500);
           }
     })
-});
-$(function(){
-
 });
 </script>
 </body>
