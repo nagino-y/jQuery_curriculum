@@ -43,17 +43,16 @@ $(function(){
     $('.next').click(function(){
         click++;
         if(click < sliderLi) {
-            var $data = $(this).data('next');
             $($sliderList).animate({
                 left: click * -sliderWidth
             }, 500);
         }
-        else if(click > sliderLi){
-            click = 0;
-            $($sliderList).animate({
-            left: 0
-        }, 500);
-        }
+        // else if(click > sliderLi){
+        //     click = 0;
+        //     $($sliderList).animate({
+        //     left: 0
+        // }, 500);
+        // }
         else{
             click = 0;
             $($sliderList).animate({
@@ -65,19 +64,17 @@ $(function(){
         click--;
           if(click < 0) {
               click = sliderLi-1;
-              var $data = $(this).data('prev');
               $($sliderList).animate({
                   left: click * -sliderWidth
               }, 500);  
           } 
           else if(click < sliderLi && click > 0) {
-              var $data = $(this).data('prev');
               $($sliderList).animate({
                   left: click * -sliderWidth
               }, 500);  
           }
           else {
-              click = sliderLi;
+              click = 0;
               $($sliderList).animate({
                   left: 0
               }, 500);
