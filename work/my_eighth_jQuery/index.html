@@ -49,32 +49,32 @@ $(function(){
     var direction, position;
 
     function onTouchStart(event) {
-        positon = getPosition(event);
+        position = getPosition(event);
         direction = "";
     }
 
     function onTouchMove(event) {
         if (position - getPosition(event) > 70) {
-            direction = 'left';
-        } else if (position - getPositon(event) < -70){
-            direction = 'right';
+            direction = 'top';
+        } else if (position - getPosition(event) < -70){
+            direction = 'bottom';
         }
     }
 
     function onTouchEnd(event) {
-        if (direction == 'right'){
+        if (direction == 'top'){
             $($swipeContainer).animate({
-                left: 1 * -swipeWidth
+                top: -swipeWidth
             }, 500);
-        } else if (direction == 'left'){
+        } else if (direction == 'bottom'){
             $($swipeContainer).animate({
-                left: 1 * swipeWidth
+                bottom: 1 * swipeWidth
             }, 500);
         }
     }
 
     function getPosition(event) {
-        return event.originalEvent.touches[0].pageX;
+        return (event.originalEvent.touches[0].pageY);
     }
 });
 
