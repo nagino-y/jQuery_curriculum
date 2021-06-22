@@ -42,10 +42,31 @@
 $(function(){
     var $swipeContainer = '.swipe-photo-container';
     const swipeWidth = $('.swipe-photo-container li').width();
+    var $swipeNum = $('.swipe-photo-container li').length;
 
-    $($swipeContainer).on('touchstart',onTouchStart);
-    $($swipeContainer).on('touchmove',onTouchMove);
-    $($swipeContainer).on('touched',onTouchEnd);
+    var $swipeSetWidth = $swipeNum * swipeWidth;
+    var swipeCurrent = 0;
+
+    $($swipeContainer).css('width',$swipeSetWidth);
+    var swiping = function(){
+
+// slideCurrentが0以下だったら
+if( swipeCurrent < 0 ){
+  swipeCurrent = $swipeNum - 1;
+
+// slideCurrentがslideNumを超えたら
+}else if( swipeCurrent > $swipeNum - 1){ // slideCUrrent >= slideNumでも可
+  swipeCurrent = 0;
+}
+
+$($swipeContainer).animate({
+  left: swipeCurrent * -swipeWidth
+});
+}
+    
+    $('#touch').on('touchstart',onTouchStart);
+    $('#touch').on('touchmove',onTouchMove);
+    $('#touch').on('touched',onTouchEnd);
     var direction, position;
 
     function onTouchStart(event) {
@@ -55,26 +76,30 @@ $(function(){
 
     function onTouchMove(event) {
         if (position - getPosition(event) > 70) {
-            direction = 'top';
+            direction = 'left';
         } else if (position - getPosition(event) < -70){
-            direction = 'bottom';
+            direction = 'right';
         }
     }
 
     function onTouchEnd(event) {
-        if (direction == 'top'){
-            $($swipeContainer).animate({
-                top: -swipeWidth
-            }, 500);
-        } else if (direction == 'bottom'){
-            $($swipeContainer).animate({
-                bottom: 1 * swipeWidth
-            }, 500);
+        if (direction == 'right'){
+            swipeCurrent--;
+            swiping();
+            // $($swipeContainer).animate({
+            //     right: -swipeWidth
+            // }, 500);
+        } else if (direction == 'left'){
+            swipeCurrent++;
+            swiping();
+            // $($swipeContainer).animate({
+            //     left: 1 * swipeWidth
+            // }, 500);
         }
     }
 
     function getPosition(event) {
-        return (event.originalEvent.touches[0].pageY);
+        return (event.originalEvent.touches[0].pageX);
     }
 });
 
