@@ -39,74 +39,101 @@
 // touchmove タッチしたあとの動いてる状態を取ります。(たくさんイベントが発生します。)
 // touchend タッチを離したタイミングを取ります。
 // あとは座標をごにょごにょいじるだけです。配列使います。ちょっと難しいです。// タッチイベント
+$(function(){
+    var $swipePhoto = $(".swipe-photo"),
+    swipeContainer = $swipePhoto.find(".swipe-photo-container"),
+    swipeItem = $swipePhoto.find(".swipe-photo-item"),
+    swipeThumbnail = swipeItem.find(".swipe-photo-thumbnail"),
+    swipeWidth = swipeThumbnail.width(),
+    itemWidth = swipeItem.length,
+    blank = [],
+    g = 400,
+    swipePosition = {x:undefined,thisX:undefined,startX:undefined,moveX:undefined};
 
-
-$(function() {
-    var $swipeContainer = '.swipe-photo-container';
-    var click = 0;
-    const swipeWidth = $('.swipe-photo-container li').width();
-    var swipeLi = $('.swipe-photo-container li').length;
-
-    $($swipeContainer).on('touchstart', onTouchStart); //指が触れたか検知
-    $($swipeContainer).on('touchmove', onTouchMove); //指が動いたか検知
-    $($swipeContainer).on('touchend', onTouchEnd); //指が離れたか検知
-    var direction, position;
-
-    //スワイプ開始時の横方向の座標を格納
-    function onTouchStart(event) {
-        position = getPosition(event);
-        direction = ''; //一度リセットする
-    }
-
-    //スワイプの方向（left／right）を取得
-    function onTouchMove(event) {
-        if (position - getPosition(event) > 70) { // 70px以上移動しなければスワイプと判断しない
-            direction = 'left'; //左と検知
-        } else if (position - getPosition(event) < -70){  // 70px以上移動しなければスワイプと判断しない
-            direction = 'right'; //右と検知
+    for(
+        var c = 0;c <= itemWidth;c++){
+            blank[c] = -c * swipeWidth
         }
-    }
-
-    function onTouchEnd(event) {
-        if (direction == 'right'){
-            click++;
-            if(click < swipeLi) {
-                $($swipeContainer).animate({
-                    left: click * -swipeWidth
-                }, 500);
-            }
+        swipeContainer.width(swipeWidth*itemWidth
+    );
+    swipeItem.on({
+        touchstart:function(i){
+            swipePosition.thisX = parseInt(swipeContainer.css("left"));//整数にする
+            swipePosition.startX = i.originalEvent.changedTouches[0].pageX-swipePosition.thisX
+        },
+        touchmove:function(i){i.preventDefault();
+            swipePosition.x = i.originalEvent.changedTouches[0].pageX;
+            if(swipePosition.x-swipePosition.startX >= 0){
+                swipePosition.moveX = 0
+            }else
+            {if(swipePosition.x-swipePosition.startX <= blank[itemWidth-1]){swipePosition.moveX=blank[itemWidth-1]}
             else{
-                click = 0;
-                $($swipeContainer).animate({
-                left: 0
-            }, 500);
-        }
-        } else if (direction == 'left'){
-            click--;
-          if(click < 0) {
-              click = swipeLi-1;
-              $($swipeContainer).animate({
-                  left: click * -swipeWidth
-              }, 500);  
-          } 
-          else if(click < swipeLi && click > 0) {
-              $($swipeContainer).animate({
-                  left: click * -swipeWidth
-              }, 500);  
-          }
-          else {
-              click = 0;
-              $($swipeContainer).animate({
-                  left: 0
-              }, 500);
-          }
-       }
+                swipePosition.moveX = swipePosition.x-swipePosition.startX}}swipeContainer.css({left:swipePosition.moveX}
+        )},
+        touchend:function(n){
+            var m = "";
+            for(var l = 0;l < itemWidth;l++){
+                if(blank[l] + (swipeWidth/2) > swipePosition.moveX && swipePosition.moveX >= blank[l+1] + (swipeWidth/2)){m = l}}swipeContainer.animate({left:blank[m]},g
+        )}
+    })
+});
+
+// $(function() {
+//     var $swipeContainer = '.swipe-photo-container';
+//     var click = 0;
+//     const swipeWidth = $('.swipe-photo-container li').width();
+//     var swipeLi = $('.swipe-photo-container li').length;
+
+//     $($swipeContainer).on('touchstart', onTouchStart); //指が触れたか検知
+//     $($swipeContainer).on('touchmove', onTouchMove); //指が動いたか検知
+//     $($swipeContainer).on('touchend', onTouchEnd); //指が離れたか検知
+//     var direction, position;
+
+//     //スワイプ開始時の横方向の座標を格納
+//     function onTouchStart(event) {
+//         position = getPosition(event);
+//         direction = ''; //一度リセットする
+//     }
+
+//     //スワイプの方向（left／right）を取得
+//     function onTouchMove(event) {
+//         if (position - getPosition(event) > 70) { // 70px以上移動しなければスワイプと判断しない
+//             direction = 'left'; //左と検知
+//         } else if (position - getPosition(event) < -70){  // 70px以上移動しなければスワイプと判断しない
+//             direction = 'right'; //右と検知
+//         }
+//     }
+
+//     function onTouchEnd(event) {
+//         if (direction == 'right'){
+//             $(function(){
+//                 var b=$(".swipe-photo"),
+//                 f=b.find(".swipe-photo-container"),
+//                 j=b.find(".swipe-photo-item"),
+//                 e=j.find(".swipe-photo-thumbnail"),
+//                 h=e.width(),a=j.length,k=[],g=400,
+//                 d={x:undefined,thisX:undefined,startX:undefined,moveX:undefined};
+//                 for(var c=0;c<=a;c++){k[c]=-c*h}f.width(h*a);
+//                 j.on({touchstart:function(i){
+//                     d.thisX=parseInt(f.css("left"));
+//                     d.startX=i.originalEvent.changedTouches[0].pageX-d.thisX},
+//                     touchmove:function(i){i.preventDefault();
+//                         d.x=i.originalEvent.changedTouches[0].pageX;
+//                         if(d.x-d.startX>=0){d.moveX=0
+//                         }else{if(d.x-d.startX<=k[a-1]){d.moveX=k[a-1]}
+//                         else{d.moveX=d.x-d.startX}}f.css({left:d.moveX})},
+//                         touchend:function(n){
+//                             var m="";
+//                             for(var l=0;l<a;l++){
+//                                 if(k[l]+(h/2)>d.moveX&&d.moveX>=k[l+1]+(h/2)){m=l}}f.animate({left:k[m]},g)}})});
+//         } else if (direction == 'left'){
+
+//        }
         // if (direction == 'right'){
         //     slider(current + 1);
         // } else if (direction == 'left'){
         //     slider(current - 1);
         // }
-    }
     //     function onTouchEnd(event) {
 //         if (direction == 'right'){
 //             swipeCurrent--;
@@ -124,10 +151,10 @@ $(function() {
 //     }
 
     //横方向の座標を取得
-    function getPosition(event) {
-        return event.originalEvent.touches[0].pageX;
-    }
-});
+//     function getPosition(event) {
+//         return event.originalEvent.touches[0].pageX;
+//     }
+// });
 // $(function(){
 //     var $swipeContainer = '.swipe-photo-container';
 //     const swipeWidth = $('.swipe-photo-container li').width();
