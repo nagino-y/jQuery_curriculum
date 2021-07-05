@@ -36,42 +36,154 @@
 // ちなみに setTimeout などを使うことで1秒後に〜するなどは実装出来ます。
 // クリックした要素は必ず変数に格納しましょう。こうすることで比較が非常に簡単です。
 // 以上になります。10個の中で一番難しい"らしい"のですが、頑張ってクリアしましょう！
+/**
+  * （説明）
+  * @type {array} cardNum ← カードの配列
+  * @type {string} totalCard ← カードの枚数
+  * @param {object} $card ← カードの引数
+  * @type {string} $firstCard ← カードをめくる1枚目
+  * @type {string} $secondCard ← カードをめくる2枚目
+  * @type {firstNum} $firstNum ← カードに書かれている数字
+  * @type {secondNum} $secondNum ← カードに書かれてる数字
+  * @type {string} $openedCard ← めくられたカード
+  *
+  *
+**/
 $(function(){
-  var $ul = $(".lists"),
-    totalCard = 15, //カード枚数
-    numbers = []; //カード配列
+  let cardNum = [];
+  let totalCard = 16;
+  let f = false;
 
-  //     returnSec = 1000, //めくったカードが戻る秒数
-  //     index; //クリックしたカードの並び順
-  //     first = true, //クリックしたカードが1枚目かどうかの判定
-  //     card1,  //1枚目に引いたカードの番号
-  //     card2,  //2枚目に引いたカードの番号
-  //     pair = 0; //正解したカードのペア数
-
-  //カード番号を配列に格納
-  for (var i = 0; i <= totalCard/2; i++){
-    numbers.push(i,i);
+  function open($card){
+    $card.css('pointer-events', 'none');
+    $card.text($card.data('num'));
   }
 
-  //配列の中身をランダムに並び替える
-  numbers.sort(function(){
-    return Math.random() - Math.random();
-  });
+  function close($card){
+    $card.css('pointer-events', '');
+    $card.text('?');
+  }
 
+  function compare($card){
+    // 1枚目に開いたカードが存在するか確認
+    // 存在すれば、即ち、現在は2枚目のカードを開いたところ 
+    if($('.firstOpen').length == 0){
+      // 開いたカードが一枚目のカードであれば、
+      // この要素が1枚目であることがわかるようにするため、
+      // firstOpenのクラスを付与しておく
+      f = false;
+      $card.addClass('firstOpen');
+    }else{
+      // 1枚目のカードのjQueryオブジェクト
+      let $firstCard = $('.firstOpen');
+      // 2枚目のカードのjQueryオブジェクト
+      let $secondCard = $card;
 
-  //カードを追加
-  var listItems = numbers.map(function(num){
-    return "<li data-num='" + num + "'>?</li>";
-  });
+      // 1枚目のカードの数字
+      let firstNum = $firstCard.data('num');
+      // 2枚目のカードの数字
+      let secondNum = $secondCard.data('num');
 
+      // 1枚目識別用のクラスを削除
+      $firstCard.removeClass('firstOpen');
 
-  $ul.append(listItems);
+      // 一致している場合、両方からunopenedを削除する
+      // その後、unopenedが付与された要素の数を確認し、
+      // 0個であれば、アラートを表示する
+      if(firstNum === secondNum){
+        f = false;
+        $firstCard.removeClass('unopened');
+        $secondCard.removeClass('unopened');
+ 
+        if($('.unopened').length === 0){
+          alert("Game Over");
+        }
+      // 一致していない場合、二枚とも閉じる
+      }else{
+        setTimeout(function(){
+          f = false;
+          close($firstCard);
+          close($secondCard);
+        }, 1000);
+      }
+    }
+  }
 
-  // カードめくり
-  $('li').click(function(){
-    $(this).text($(this).data('num'));
+  // カードの中身を作成
+  for (var i = 1; i <= totalCard/2; i++){
+    cardNum.push(i,i);
+  }
+
+  // ランダムに並べ替えて
+  // li要素を作成して
+  // listに追加
+
+  cardNum
+    .sort(function(){
+      return Math.random() - Math.random();
+    })
+    .map(function(num){
+      return "<li class='unopened' data-num='" + num + "'>?</li>";
+    })
+    .forEach(function(element){
+      $(".lists").append(element);
+    });
+
+  $('.lists li').on('click', function(){
+    if (f) return;
+    // クリックされたカード(li要素)のjQueryオブジェクト
+    f = true;
+    let $openedCard = $(this);
+
+    // カードをオープン
+    open($openedCard);
+
+    // カードを比較
+    // 1秒ほど待機させてから比較させる
+    // ※待機しないと二枚目のカードの番号が表示されるとほぼ同時ぐらいに比較が終わり
+    // 二枚目のカードの数字がわかりにくいため
+      compare($openedCard);
   });
 });
+
+
+// $(function(){
+//   var $ul = $(".lists"),
+//     totalCard = 15, //カード枚数
+//     numbers = []; //カード配列
+
+//   //     returnSec = 1000, //めくったカードが戻る秒数
+//   //     index; //クリックしたカードの並び順
+//   //     first = true, //クリックしたカードが1枚目かどうかの判定
+//   //     card1,  //1枚目に引いたカードの番号
+//   //     card2,  //2枚目に引いたカードの番号
+//   //     pair = 0; //正解したカードのペア数
+
+//   //カード番号を配列に格納
+//   for (var i = 0; i <= totalCard/2; i++){
+//     numbers.push(i,i);
+//   }
+
+//   //配列の中身をランダムに並び替える
+//   numbers.sort(function(){
+//     return Math.random() - Math.random();
+//   });
+
+
+//   //カードを追加
+//   var listItems = numbers.map(function(num){
+//     return "<li data-num='" + num + "'>?</li>";
+//   });
+
+
+//   $ul.append(listItems);
+
+//   // カードめくり
+//   $('li').click(function(){
+//     $(this).text($(this).data('num'));
+//   });
+
+// });
 
 // var total = 16;    //カードの枚数
 // var isFirst = true;    //1枚目か判定
