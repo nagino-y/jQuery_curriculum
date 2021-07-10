@@ -29,6 +29,33 @@
     <script type="text/javascript">
     // 楽天ブックスの総合検索APIを使って製作してください。
     // answerの挙動を良く見てね！
+    $(function(){
+    $("#js-search-button").on("click", function(){
+        $word = $("#js-search-word").val();
+
+        ajaxSearch($word);
+    });
+
+    function ajaxSearch(word){
+        $.ajax({
+            type: 'get',
+            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522?',
+            data: {
+                applicationId: 'すでに習得済み',
+                keyword: encodeURIComponent(word),
+                format: 'json',
+                hits: '20',
+                page: '1'               
+            }
+        }).done(function(data){
+            getItem();
+        });
+    }
+
+    function getItem(data){
+        console.log(data);
+    }
+});
     </script>
 </body>
 </html>

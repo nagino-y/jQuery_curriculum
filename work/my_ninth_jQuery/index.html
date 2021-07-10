@@ -36,19 +36,7 @@
 // ちなみに setTimeout などを使うことで1秒後に〜するなどは実装出来ます。
 // クリックした要素は必ず変数に格納しましょう。こうすることで比較が非常に簡単です。
 // 以上になります。10個の中で一番難しい"らしい"のですが、頑張ってクリアしましょう！
-/**
-  * （説明）
-  * @type {array} cardNum ← カードの配列
-  * @type {string} totalCard ← カードの枚数
-  * @param {object} $card ← カードの引数
-  * @type {string} $firstCard ← カードをめくる1枚目
-  * @type {string} $secondCard ← カードをめくる2枚目
-  * @type {firstNum} $firstNum ← カードに書かれている数字
-  * @type {secondNum} $secondNum ← カードに書かれてる数字
-  * @type {string} $openedCard ← めくられたカード
-  *
-  *
-**/
+
 $(function(){
   let cardNum = [];
   let totalCard = 16;
@@ -145,91 +133,6 @@ $(function(){
       compare($openedCard);
   });
 });
-
-
-// $(function(){
-//   var $ul = $(".lists"),
-//     totalCard = 15, //カード枚数
-//     numbers = []; //カード配列
-
-//   //     returnSec = 1000, //めくったカードが戻る秒数
-//   //     index; //クリックしたカードの並び順
-//   //     first = true, //クリックしたカードが1枚目かどうかの判定
-//   //     card1,  //1枚目に引いたカードの番号
-//   //     card2,  //2枚目に引いたカードの番号
-//   //     pair = 0; //正解したカードのペア数
-
-//   //カード番号を配列に格納
-//   for (var i = 0; i <= totalCard/2; i++){
-//     numbers.push(i,i);
-//   }
-
-//   //配列の中身をランダムに並び替える
-//   numbers.sort(function(){
-//     return Math.random() - Math.random();
-//   });
-
-
-//   //カードを追加
-//   var listItems = numbers.map(function(num){
-//     return "<li data-num='" + num + "'>?</li>";
-//   });
-
-
-//   $ul.append(listItems);
-
-//   // カードめくり
-//   $('li').click(function(){
-//     $(this).text($(this).data('num'));
-//   });
-
-// });
-
-// var total = 16;    //カードの枚数
-// var isFirst = true;    //1枚目か判定
-// var card1 = "";    //array_cardsのindex（1枚目）
-// var card2 = "";    //array_cardsのindex（2枚目）
-// var array_cards = [];    //カードに表示する数値を格納する配列
-// //カードに表示する数値を生成
-// //array_cards = [1,1,2,2,3,3,4,4,5,5]となる）
-// for(i=1; i <= total/2; i++) {
-//   array_cards.push(i,i);
-// }
-// //array_cards配列の数値をランダムに並び替える
-// array_cards.sort(function() {
-//   return Math.random() - Math.random();
-// });
-// //ulに空のli要素を追加
-// for(i=0; i < total; i++) {
-//   $(".lists").append("<li></li>");  
-// }
-// //li要素をクリックした際の処理
-// $(".lists li").on("click",function(){
-//   //1枚目の場合は、全li要素のテキストを空にする
-//   if(isFirst){
-//     $(".lists li").text("");
-//   }
-//   //li要素のindexを取得
-//   var index = $(this).index();
-  
-//   //li要素のindexと同じindexであるarray_cards配列の値を表示する
-//   $(this).text(array_cards[index]);
-    
-//   if(isFirst){
-//     //１枚目
-//     card1 = index;
-//     isFirst = false;
-//   }else{
-//     //2枚目
-//     card2 = index;
-//     //1枚目と2枚目の値が同じ場合はli要素の背景色を赤にする
-//     if(array_cards[card1] === array_cards[card2]){
-//       $(".lists li").eq(card1).css("background-color","red");
-//       $(".lists li").eq(card2).css("background-color","red");
-//     }
-//     isFirst = true;    
-//   }  
-// });
 </script>
 </body>
 </html>
