@@ -30,32 +30,89 @@
     // 楽天ブックスの総合検索APIを使って製作してください。
     // answerの挙動を良く見てね！
     $(function(){
-    $("#js-search-button").on("click", function(){
-        $word = $("#js-search-word").val();
-
-        ajaxSearch($word);
-    });
-
-    function ajaxSearch(word){
+      $('#js-search-button').on('click',function(){
+        var keyword = $('#js-search-word').val();
         $.ajax({
-            type: 'get',
-            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522?',
-            data: {
-                applicationId: 'すでに習得済み',
-                keyword: encodeURIComponent(word),
-                format: 'json',
-                hits: '20',
-                page: '1'               
-            }
-        }).done(function(data){
-            getItem();
-        });
-    }
+         url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522',
+         type: 'GET',
+         datatype: 'json',
+         data: {
+           // 「区分:サービス固有パラメーター」を確認して、必要な情報をdata内に入れましょう。
+          applicationId: '1019399324990976605', // (今回はこのIDを使用してください)
+          booksGenreId: '001',
+          keyword: keyword,
+          hits: '20',
 
-    function getItem(data){
-        console.log(data);
-    }
-});
+        }}).done(function(data){
+          if (data.count > 0){
+            $("ul").empty();
+            $.each(data.Items,function(i,item){
+              var list = $("<li class='lists__item'>" +
+                "<div class='lists__item__inner'>" +
+                "<a href='" + item.Item.itemUrl + 
+                    "'class='lists__item__link' target='_blank'>" + 
+                "<img src='" + item.Item.mediumImageUrl +
+                     "' class='lists__item__img' alt>" +
+                "<p class='lists__item__detail'>作品名：　" + 
+                    item.Item.title + '</p>' +
+                "<p class='lists__item__detail'>作者　：　" + 
+                    item.Item.author + '</p>' +
+                "<p class='lists__item__detail'>出版社：　" +
+                    item.Item.publisherName + '</p>' + '</a>' +
+                '</div>' + '</li>');
+              $('ul').prepend(list);
+            })
+        } else {
+            $('.lists').before('<div class="coment"></div>')
+            coment = $('.coment');
+            coment.html('<p class="message">検索結果が見つかりませんでした。</p>');
+        }
+      });
+      });
+    });
+//     $(function(){
+//   $('#js-search-button').on('click', function(){
+//     var keyword = $('#js-search-word').val();
+//     $.get('https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?', {
+//       applicationId: "1046798079875156979",
+//       keyword: keyword
+//     }, function(data){
+//       if (data.count > 0){
+//         $.each(data.Items, function(i, item){
+//           var temp = $(`&lt;li>&lt;a href="${item.Item.itemUrl}">&lt;img src="${item.Item.mediumImageUrls[0].imageUrl}">&lt;/a>&lt;/li>`);
+//           $('ul').append(temp);
+//         })
+//       }
+//     });
+//   });
+// });
+//     $(function(){
+//     $("#js-search-button").on("click", function(){
+//         $word = $("#js-search-word").val();
+
+//         ajaxSearch($word);
+//     });
+
+//     function ajaxSearch(word){
+//         $.ajax({
+//             type: 'get',
+//             url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20130522?',
+//             data: {
+//                 applicationId: 'すでに習得済み',
+//                 keyword: encodeURIComponent(word),
+//                 format: 'json',
+//                 hits: '20',
+//                 page: '1'               
+//             }
+//         }).done(function(data){
+//             getItem();
+//         });
+//     }
+
+//     function getItem(data){
+//         console.log(data);
+//     }
+// });
     </script>
 </body>
 </html>
