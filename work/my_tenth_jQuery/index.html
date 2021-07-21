@@ -32,6 +32,8 @@
     $(function(){
       $('#js-search-button').on('click',function(){
         var keyword = $('#js-search-word').val();
+        var regexp = /[\s\u{3000}]/ug;
+        var text = $(".search__text").text();
 
         $.get('https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?',{
           applicationId: "1096525417627568230",
@@ -58,10 +60,16 @@
             $('.lists').before('<div class="coment"></div>')
             coment = $('.coment');
             coment.html('<p class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>');
-          } else if($.trim('.js-search-word'.text())==''){
+          }
+           else if (text.replace(regexp,'') == ''){
             $('.lists').before('<div class="coment"></div>')
             coment = $('.coment');
-            coment.html('<p class="message">fffffffffff<br>別のキーワードで検索して下さい。</p>');
+            coment.html('<p class="message">検索結果。<br>別のキーワードで検索して下さい。</p>');
+          }
+        //    else if($.trim('.js-search-word'.text())==''){
+        //     $('.lists').before('<div class="coment"></div>')
+        //     coment = $('.coment');
+        //     coment.html('<p class="message">fffffffffff<br>別のキーワードで検索して下さい。</p>');
             // $( function() {
             // 	// ドキュメントロードに実行する初期化コード
 	        //     // alert ('init')
@@ -69,10 +77,10 @@
             // $(document).on('click', list, function () {
             //     $(this).remove();
             // });
-          }
+          })
         });
       });
-      });
+    //   });
     // $(function(){
     //   $('#js-search-button').on('click',function(){
     //     var keyword = $('#js-search-word').val();
