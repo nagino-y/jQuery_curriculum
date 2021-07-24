@@ -32,14 +32,17 @@
     $(function(){
       $('#js-search-button').on('click',function(){
         var keyword = $('#js-search-word').val();
-        var regexp = /[\s\u{3000}]/ug;
-        var text = $(".search__text").text();
+        var searchWord = "";
+        var pageNum = 0;
+        // var regexp = /[\s\u{3000}]/ug;
+        // var text = $(".search__text").text();
 
         $.get('https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?',{
           applicationId: "1096525417627568230",
           keyword: keyword,
           booksGenreId: '001',
-          hits: '20'
+          hits: '20',
+          page: pageNum
         },
         function(data){
           if (data.count > 0){
@@ -60,12 +63,13 @@
             $('.lists').before('<div class="coment"></div>')
             coment = $('.coment');
             coment.html('<p class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>');
-          }
-           else if (text.replace(regexp,'') == ''){
-            $('.lists').before('<div class="coment"></div>')
-            coment = $('.coment');
-            coment.html('<p class="message">検索結果。<br>別のキーワードで検索して下さい。</p>');
-          }
+          } else if ()
+
+          //  else if (text.replace(regexp,'') == ''){
+          //   $('.lists').before('<div class="coment"></div>')
+          //   coment = $('.coment');
+          //   coment.html('<p class="message">検索結果。<br>別のキーワードで検索して下さい。</p>');
+          // }
         //    else if($.trim('.js-search-word'.text())==''){
         //     $('.lists').before('<div class="coment"></div>')
         //     coment = $('.coment');
