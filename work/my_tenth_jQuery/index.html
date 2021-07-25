@@ -29,61 +29,119 @@
     <script type="text/javascript">
     // 楽天ブックスの総合検索APIを使って製作してください。
     // answerの挙動を良く見てね！
-    $(function(){
-      $('#js-search-button').on('click',function(){
-        var keyword = $('#js-search-word').val();
-        var searchWord = "";
-        var pageNum = 0;
-        // var regexp = /[\s\u{3000}]/ug;
-        // var text = $(".search__text").text();
+    $(document).ready(function() {
 
-        $.get('https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?',{
-          applicationId: "1096525417627568230",
-          keyword: keyword,
-          booksGenreId: '001',
-          hits: '20',
-          page: pageNum
-        },
-        function(data){
-          if (data.count > 0){
-            //全件削除
-            // $("ul").empty();
-            $.each(data.Items,function(i,item){
-            console.log(item);
-              var list = $('<li class="lists__item">' + '<div class="lists__item__inner">' + '<a href="' +
-                item.Item.itemUrl + '"class="lists__item__link" target="_blank">' + '<img src="' + item.Item
-                .largeImageUrl + '" class="lists__item__img" alt="' + item.Item.title + '">' +
-                '<p class="lists__item__detail">作品名： ' + item.Item.title + '</p>' +
-                '<p class="lists__item__detail">作者： ' + item.Item.author + '</p>' +
-                '<p class="lists__item__detail">出版社： ' + item.Item.publisherName + '</p>' + '</a>' +
-                '</div>' + '</li>');
-              $('ul').append(list);
-            })
-          } else if (data.count === 0) {
-            $('.lists').before('<div class="coment"></div>')
-            coment = $('.coment');
-            coment.html('<p class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>');
-          } else if ()
+      var searchWord = '';
+      var blnaK = '';
+      var $lists = $('.lists');
+      var pageNum = 0;
 
-          //  else if (text.replace(regexp,'') == ''){
-          //   $('.lists').before('<div class="coment"></div>')
-          //   coment = $('.coment');
-          //   coment.html('<p class="message">検索結果。<br>別のキーワードで検索して下さい。</p>');
-          // }
-        //    else if($.trim('.js-search-word'.text())==''){
-        //     $('.lists').before('<div class="coment"></div>')
-        //     coment = $('.coment');
-        //     coment.html('<p class="message">fffffffffff<br>別のキーワードで検索して下さい。</p>');
-            // $( function() {
-            // 	// ドキュメントロードに実行する初期化コード
-	        //     // alert ('init')
-            // });
-            // $(document).on('click', list, function () {
-            //     $(this).remove();
-            // });
-          })
+      $('.search__btn').on('click', function() {
+
+        function searchButton() {
+          var search = $('.search__text__input').val();
+          console.log(searchWord);
+          return search;
+        };
+
+        function countUp() {
+          pageNum = pageNum + 1;
+          return pageNum;
+        };
+
+        function ajax() {
+          console.log(pageNum);
+          console.log(searchWord);
+          $.ajax({
+            url: 'https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?',
+            type: 'GET',
+            datatype: 'json',
+            data: {
+              keyword: searchWord,
+              applicationId: '1099044545740886182',
+              booksGenreId: '001',
+              page: pageNum,
+              hits: '20'
+            }
+          }).done(function(data) {
+            // var notMeaasge = 0;
+            console.log(data.hits);
+
+            if(data.hits === 0) {
+              $lists.after('<div class="message"></div>');
+              $('.message').html('<p>検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>');
+            }else{
+              $('.message').remove();
+            };
+
+            data.Items.forEach(function(item) {
+              var template = '<li class="lists__item">' + '<div class="lists__item__inner">' + '<a href="' + item.Item.itemUrl + '"class="lists__item__link" target="_blank">' + '<img src="' + item.Item.mediumImageUrl + '"class="lists__item__img" alt="' + item.Item.title + '">' + 
+              '<p class="lists__item__detail">作品名： ' + item.Item.title + '</p>' + 
+              '<p class="lists__item__detail">作者 ： ' + item.Item.author + '</p>' + 
+              '<p class="lists__item__detail">出版社： ' + item.Item.publisherName + '</p>' + '</a>' + '</div>' + '</li>';   
+              $lists.prepend(template);
+            });
+          });
+        };
+
+          searchWord = searchButton();
+          pageNum = countUp();
+          
+          if(blanK !== searchWord) {
+            $('ul').empty();
+            pageNum = 1;
+            blanK = searchWord;
+          };
+
+          ajax();
         });
       });
+    // $(function(){
+
+    //   $('#js-search-button').on('click',function(){
+    //     var keyword = $('#js-search-word').val();
+    //     var searchWord = "";
+    //     var pageNum = 0;
+    //     // var regexp = /[\s\u{3000}]/ug;
+    //     // var text = $(".search__text").text();
+    //     $(function countUp(){
+    //       pageNum = pageNum + 1;
+    //       return pageNum;
+    //     });
+
+    //     $.get('https://app.rakuten.co.jp/services/api/BooksTotal/Search/20170404?',{
+    //       applicationId: "1096525417627568230",
+    //       keyword: keyword,
+    //       booksGenreId: '001',
+    //       hits: '20',
+    //       page: pageNum
+    //     },
+    //     function(data){
+    //       if (data.count > 0){
+    //         //全件削除
+    //         // $("ul").empty();
+    //         $.each(data.Items,function(i,item){
+    //         console.log(pageNum);
+    //         console.log(item);
+    //           var list = $('<li class="lists__item">' + '<div class="lists__item__inner">' + '<a href="' +
+    //             item.Item.itemUrl + '"class="lists__item__link" target="_blank">' + '<img src="' + item.Item
+    //             .largeImageUrl + '" class="lists__item__img" alt="' + item.Item.title + '">' +
+    //             '<p class="lists__item__detail">作品名： ' + item.Item.title + '</p>' +
+    //             '<p class="lists__item__detail">作者： ' + item.Item.author + '</p>' +
+    //             '<p class="lists__item__detail">出版社： ' + item.Item.publisherName + '</p>' + '</a>' +
+    //             '</div>' + '</li>');
+    //           $('ul').append(list);
+    //         })
+    //       } else if (data.count === 0) {
+    //         $('.lists').before('<div class="coment"></div>')
+    //         coment = $('.coment');
+    //         coment.html('<p class="message">検索結果が見つかりませんでした。<br>別のキーワードで検索して下さい。</p>');
+    //       } else if (keyword === serchWord) {
+    //         $('ul').empty();
+    //       }
+    //       })
+    //     });
+    //   });
     //   });
     // $(function(){
     //   $('#js-search-button').on('click',function(){
