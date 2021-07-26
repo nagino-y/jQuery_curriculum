@@ -32,7 +32,7 @@
     $(document).ready(function() {
 
       var searchWord = '';
-      var blnaK = '';
+      var blanK = '';
       var $lists = $('.lists');
       var pageNum = 0;
 
@@ -87,7 +87,7 @@
           searchWord = searchButton();
           pageNum = countUp();
           
-          if(blanK !== searchWord) {
+          if(blanK!== searchWord) {
             $('ul').empty();
             pageNum = 1;
             blanK = searchWord;
